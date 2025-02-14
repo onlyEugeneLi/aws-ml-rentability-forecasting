@@ -89,29 +89,82 @@ It is commonly agreed that leveraging cloud technology and machine learning can 
     sudo apt install python3-flask
     ```
 
-**Installing Jupyter**
+1. **Installing Jupyter**
+
+    ```
+    pip install jupyterlab
+    
+    pip install jupyter notebook
+    
+    echo 'export PATH=$PATH:~/.local/bin' >> ~/.bashrc
+    
+    source ~/.bashrc
+
+    # Set password
+    jupyter notebook password
+    ```
+
+    Check Linux system disk space
+
+    ```
+    df -h
+    ```
+
+1. **Configuring Security on AWS**
+
+1. **Starting Jupyter Lab on EC2**
+
+    Initiate Jupyter Notebook inside EC2 instance
+
+    ```
+    jupyter-lab --ip 0.0.0.0 --no-browser --allow-root
+    ```
+
+1. **Accessing Jupyter Lab Externally**
+
+    Go to public IPv4 address:port number/lab
+
+    Log in with Jupyter Lab password
+
+## Model Serving Application using Flask & EC2
+
+Write a Flask script which will be deployed in your **EC2** instance to serve predictions from the serialized machine learning model stored in your S3 bucket . This service, listening on port 5051, offers a /predict endpoint that processes input data, logs activities to CloudWatch, and handles errors efficiently. 
+
+Steps:
+
+1. Set up a **Flask** web application to serve a machine learning model.
+
+1. Load a trained model artifact from an **S3** bucket named udemy-ds-lab.
+
+1. Implement an endpoint /predict that:
+
+    * Accepts input data in JSON format.
+
+    * Predicts outcomes using the loaded model.
+
+    * Logs both input data and predictions to **CloudWatch**.
+
+1. Handle errors gracefully by logging them to **CloudWatch** and returning appropriate error messages.
+
+1. Ensure the application listens on port 5051 and is accessible from any IP.
+
+**Upload the Flask script main.py to the folder flask_app:**
 
 ```
-pip install jupyterlab
- 
-pip install jupyter notebook
- 
-echo 'export PATH=$PATH:~/.local/bin' >> ~/.bashrc
- 
-source ~/.bashrc
-
-# Set password
-jupyter notebook password
+scp -i "name-of-keypair.pem" flask-script/main.py ubuntu@your-ec2-public-ipv4-dns:flask_app
 ```
 
-Check Linux system disk space
+**Run a curl command to get predictions against the model serving Flask application running on port 5051 of your EC2 instance.**
 
 ```
-df -h
+curl -X POST http://your-ec2-instance-public-ip:5051/predict \
+-H "Content-Type: application/json" \
+-d '{"ADS_GEO_LAT":50.63334,"ADS_GEO_LNG":3.04214,"ADS_ATTR_ROOMS":1,"ADS_ATTR_SQUARE":20,"ADS_ATTR_REAL_ESTATE_TYPE_NUM":1,"ADS_ATTR_FURNISHED_NUM":2}'
 ```
 
-**Configuring Security on AWS**
+**Kill the Flask application & run the Flask application in the background this time by executing a `nohup` command**
 
-**Starting Jupyter Lab on EC2**
+```
+nohup python3 flask_app/main.py > model_serving_logs.txt 2>&1 &
+```
 
-**Accessing Jupyter Lab Externally**

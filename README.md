@@ -1,5 +1,7 @@
 # Develop and deploy an XGBoost House Rentability Forecasting model using AWS EC2 and API Gateway
 
+This project is based on the [lab session]() in Udemy. 
+
 <center><img src='https://media2.dev.to/dynamic/image/width=1000,height=420,fit=cover,gravity=auto,format=auto/https%3A%2F%2Fdev-to-uploads.s3.amazonaws.com%2Fi%2F5p94qxqe2w9vzchif3ll.jpg' alt='' width='400' align='center'>
 </center>
 
@@ -168,3 +170,37 @@ curl -X POST http://your-ec2-instance-public-ip:5051/predict \
 nohup python3 flask_app/main.py > model_serving_logs.txt 2>&1 &
 ```
 
+## Python Script for Continuous Training
+
+1. Data Management:
+
+* Load data from an S3 bucket.
+
+* Validate the structure of the loaded data to ensure consistency and correctness.
+
+1. Data Preprocessing:
+
+    Process the data by applying transformations and encodings. These steps should align with the preprocessing actions you took during the initial model training.
+
+1. Model Training & Evaluation:
+
+* Train an XGBoost machine learning model using the preprocessed data.
+
+* Evaluate the model's performance to ensure it meets the expected standards.
+
+1. Logging & Monitoring:
+
+    Integrate AWS CloudWatch to log messages and important data. This will help in actively monitoring the continuous training process and troubleshooting any issues.
+
+1. Model Deployment Criteria:
+
+    Set a threshold for the model's R2 Score. If the model's performance meets or exceeds this threshold, then the trained model artifact will be saved and deployed to S3 for future use.
+
+## Create CloudWatch Log group
+
+
+## Schedule Continuous Training (Batch job)
+
+Set up a cronjob to ensure the model is continuously trained at 9am UTC time everyday.
+
+Refer to the bash script [ec2-cron-job.sh](ec2-cron-job.sh) for crontab commands.

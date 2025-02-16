@@ -207,6 +207,12 @@ kill PID
     -d '{"ADS_GEO_LAT":50.63334,"ADS_GEO_LNG":3.04214,"ADS_ATTR_ROOMS":1,"ADS_ATTR_SQUARE":20,"ADS_ATTR_REAL_ESTATE_TYPE_NUM":1,"ADS_ATTR_FURNISHED_NUM":2}'
     ```
 
+    One-line command:
+
+    ```
+    curl -X POST https://zgkg0grdt0.execute-api.us-east-2.amazonaws.com/production/ml-api-resource -H "x-api-key: iwYYU1UI1u2SsTqsLobuH2fxqYQqKUCK1emjmFZX" -H "Content-Type: application/json" -d '{"ADS_GEO_LAT":50.63334,"ADS_GEO_LNG":3.04214,"ADS_ATTR_ROOMS":1,"ADS_ATTR_SQUARE":20,"ADS_ATTR_REAL_ESTATE_TYPE_NUM":1,"ADS_ATTR_FURNISHED_NUM":2}'
+    ```
+
 ## Python Script for Continuous Training
 
 1. Data Management:

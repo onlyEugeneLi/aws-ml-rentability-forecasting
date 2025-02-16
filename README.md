@@ -167,9 +167,46 @@ curl -X POST http://your-ec2-instance-public-ip:5051/predict \
 **Kill the Flask application & run the Flask application in the background this time by executing a `nohup` command**
 
 ```
-nohup python3 flask_app/main.py > model_serving_logs.txt 2>&1 &
+nohup python flask_app/main.py > model_serving_logs.txt 2>&1 &
 ```
 
+To check all the running processes:
+
+```
+ps -ef
+```
+
+To kill the process:
+
+```
+kill PID
+```
+
+## Create API Gateway proxy for model serving endpoint
+
+1. Define a new REST API
+
+1. Resource & method: add a new resource and create a POST method for it. 
+
+1. Validation: Test the POST method with a sample JSON payload to ensure it's working as expected.
+
+    ```
+    {"ADS_GEO_LAT":50.63334,"ADS_GEO_LNG":3.04214,"ADS_ATTR_ROOMS":1,"ADS_ATTR_SQUARE":20,"ADS_ATTR_REAL_ESTATE_TYPE_NUM":1,"ADS_ATTR_FURNISHED_NUM":2}
+    ```
+
+1. Deployment: Deploy the API to a new stage.
+
+1. Access Details: After deployment, obtain the Invoke URL for external testing purposes.
+
+1. External Test: Use the curl command to test the API with the provided JSON payload.
+
+    ```
+    curl -X POST https://https://zgkg0grdt0.execute-api.us-east-2.amazonaws.com/production/ml-api-resource \
+    -H "x-api-key: iwYYU1UI1u2SsTqsLobuH2fxqYQqKUCK1emjmFZX \
+    -H "Content-Type: application/json" \
+    -d '{"ADS_GEO_LAT":50.63334,"ADS_GEO_LNG":3.04214,"ADS_ATTR_ROOMS":1,"ADS_ATTR_SQUARE":20,"ADS_ATTR_REAL_ESTATE_TYPE_NUM":1,"ADS_ATTR_FURNISHED_NUM":2}'
+    ```
+    
 ## Python Script for Continuous Training
 
 1. Data Management:
@@ -199,8 +236,13 @@ nohup python3 flask_app/main.py > model_serving_logs.txt 2>&1 &
 ## Create CloudWatch Log group
 
 
-## Schedule Continuous Training (Batch job)
+## Schedule Continuous Training (Cron job)
 
 Set up a cronjob to ensure the model is continuously trained at 9am UTC time everyday.
 
 Refer to the bash script [ec2-cron-job.sh](ec2-cron-job.sh) for crontab commands.
+
+P.S. Cron job V.S. Batch job
+| Cron job | Batch job |
+| -------- | --------- |
+| A time managed script / command | a script that runs |

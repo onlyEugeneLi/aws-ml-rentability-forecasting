@@ -1,9 +1,57 @@
 # Develop and deploy an XGBoost House Rentability Forecasting model using AWS EC2 and API Gateway
 
-This project is based on the [lab session]() in Udemy. 
+This project is based on the [lab session](https://e2.udemymail.com/ls/click?upn=u001.SYmHo8n5cEkWdfJ1quYpib1GpxNSnHXn-2BTfowh5U-2BJpl9WAzvlNzKsDmEx5ZZKkbhhdwd592K3geZGQGYdhXe-2BwqirRbGxY1L-2FyPUA3wQ8pdKa1Q6T0iBEadaZstbSf7pOtDiizd0mBMjq50XoWWxE0Zgru73dwdo3fgQ6SxoiKez6XGkGaFoM4tmU7yHW0MRuN-2FtUm39OkpPLYjnnXuvqs3nwu6yiA2L7NApuXA5GpX7veszj0HObGv1Ic7b4E4Tnx-2FZQMuubG-2BN0hsAUl61w-3D-3D7IYO_2ufKv4pZrDqayQ700wQvleH4JEzHGS1DtwRZRKW4nCK2nwGwB-2BsHUYwDr2Gn4-2BFTgPHkMBITTKwvBzlZZZI7mP9An9kI0ILrHyXT4Cxe5FAm-2F8eXjeNC7AyAg0XkT-2F-2BnY7mH2VzQMtXMVz-2BCwl6ZdgItfXgkPWUaZ8qefdiTPIqD7O-2Fs3ueJgSuYvL0Z81eVcERFZuRt4WiVbjEzx854YhDYeIMXz6Ups7qWAW9g6t-2FTpL79SMDYDgtu-2FlazIxoC0X3-2F-2F0cbwUBgDzxKpPjxwOT9h4oIQxG7MBfWtWZ0boyGOssIEtLUcQmV669s4JXhVxXdmckfO73-2BHY2PZZuWTvitEq7QnsKKZ97FbNFu6x9LTjSNHxOr9txb5odBlxcP) in Udemy. 
 
 <center><img src='https://media2.dev.to/dynamic/image/width=1000,height=420,fit=cover,gravity=auto,format=auto/https%3A%2F%2Fdev-to-uploads.s3.amazonaws.com%2Fi%2F5p94qxqe2w9vzchif3ll.jpg' alt='' width='400' align='center'>
 </center>
+
+## Try it out!
+
+For **MacOS/Linux** users, run this command in your terminal:
+
+```
+curl -X POST https://zgkg0grdt0.execute-api.us-east-2.amazonaws.com/production/ml-api-resource \
+-H "x-api-key: iwYYU1UI1u2SsTqsLobuH2fxqYQqKUCK1emjmFZX" \
+-H "Content-Type: application/json" \
+-d '{"ADS_GEO_LAT":50.63334,"ADS_GEO_LNG":3.04214,"ADS_ATTR_ROOMS":1,"ADS_ATTR_SQUARE":20,"ADS_ATTR_REAL_ESTATE_TYPE_NUM":1,"ADS_ATTR_FURNISHED_NUM":2}'
+```
+
+Feel free to tweak the feature values to see how the predictions change!
+
+For **Windows** users, 
+
+1. Prepare data in JSON format
+
+    In the Prompt Command's working directory
+
+    Create a new `.json` file and name it `test-data.json`
+
+    Copy and Paste the following data into the file
+
+    ```
+    {"ADS_GEO_LAT":50.63334,"ADS_GEO_LNG":3.04214,"ADS_ATTR_ROOMS":1,"ADS_ATTR_SQUARE":20,"ADS_ATTR_REAL_ESTATE_TYPE_NUM":1,"ADS_ATTR_FURNISHED_NUM":2}
+    ```
+
+1. Run this commnad in your Powershell or Prompt Command:
+
+    ```
+    curl.exe -X POST https://zgkg0grdt0.execute-api.us-east-2.amazonaws.com/production/ml-api-resource -H "x-api-key: iwYYU1UI1u2SsTqsLobuH2fxqYQqKUCK1emjmFZX" -H "Content-Type: application/json" -d @test-data.json
+    ```
+
+**Result**: 
+
+You should expect something like this returned back from the API. 
+
+```
+{
+  "message": "Thank you for trying my first ML model in production.",
+  "predictions": [
+    495.02734375
+  ]
+}
+```
+
+## Background 
 
 As the housing market continuously evolves due to factors like economic shifts, policy changes, and regional developments, it is benefitial to stay ahead by developing a predictive service that forecasts the rentability of houses. The house rental dataset covers rental market data across different U.S. regions. 
 
@@ -207,11 +255,20 @@ kill PID
     -d '{"ADS_GEO_LAT":50.63334,"ADS_GEO_LNG":3.04214,"ADS_ATTR_ROOMS":1,"ADS_ATTR_SQUARE":20,"ADS_ATTR_REAL_ESTATE_TYPE_NUM":1,"ADS_ATTR_FURNISHED_NUM":2}'
     ```
 
-    One-line command:
+    One-line command (Linux):
 
     ```
     curl -X POST https://zgkg0grdt0.execute-api.us-east-2.amazonaws.com/production/ml-api-resource -H "x-api-key: iwYYU1UI1u2SsTqsLobuH2fxqYQqKUCK1emjmFZX" -H "Content-Type: application/json" -d '{"ADS_GEO_LAT":50.63334,"ADS_GEO_LNG":3.04214,"ADS_ATTR_ROOMS":1,"ADS_ATTR_SQUARE":20,"ADS_ATTR_REAL_ESTATE_TYPE_NUM":1,"ADS_ATTR_FURNISHED_NUM":2}'
     ```
+
+    One-line command (Windows):
+
+    ```
+    curl.exe -X POST https://zgkg0grdt0.execute-api.us-east-2.amazonaws.com/production/ml-api-resource -H "x-api-key: iwYYU1UI1u2SsTqsLobuH2fxqYQqKUCK1emjmFZX" -H "Content-Type: application/json" -d @test-data.json
+    ```
+
+    Make sure *test-data.json* file is in the direct directory of prompt command working directory.
+
 
 ## Python Script for Continuous Training
 

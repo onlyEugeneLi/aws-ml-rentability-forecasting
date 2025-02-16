@@ -70,7 +70,10 @@ def predict():
         input_json = request.get_json()
         df_input = pd.DataFrame([input_json])
         y_predictions = model.predict(df_input)
-        response = {'predictions': y_predictions.tolist()}
+        response = {
+            "predictions": y_predictions.tolist(),
+            "message": "Thank you for trying my first ML model in production."
+            }
 
         log_data = {
             'input': input_json,
@@ -88,4 +91,4 @@ if __name__ == '__main__':
     '''
     starts the Flask application, making it listen on port 5051 and accessible from any IP
     '''
-    app.run(debug=True, host="0.0.0.0", port=int(5051))
+    app.run(debug=True, host="0.0.0.0", port=int(5051))  # Runs in the background to wait for HTTP requests

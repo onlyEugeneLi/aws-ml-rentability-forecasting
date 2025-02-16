@@ -7,7 +7,7 @@ This project is based on the [lab session](https://e2.udemymail.com/ls/click?upn
 
 ## Try it out!
 
-For **MacOS/Linux** users, run this command in your terminal:
+🍎 For **MacOS/Linux** users, run this command in your terminal:
 
 ```
 curl -X POST https://zgkg0grdt0.execute-api.us-east-2.amazonaws.com/production/ml-api-resource \
@@ -16,9 +16,9 @@ curl -X POST https://zgkg0grdt0.execute-api.us-east-2.amazonaws.com/production/m
 -d '{"ADS_GEO_LAT":50.63334,"ADS_GEO_LNG":3.04214,"ADS_ATTR_ROOMS":1,"ADS_ATTR_SQUARE":20,"ADS_ATTR_REAL_ESTATE_TYPE_NUM":1,"ADS_ATTR_FURNISHED_NUM":2}'
 ```
 
-Feel free to tweak the feature values to see how the predictions change!
+Feel free to tweak the feature values (*values after `-d` flag*) to see how the predictions change!
 
-For **Windows** users, 
+⛰️ For **Windows** users, 
 
 1. Prepare data in JSON format
 

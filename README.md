@@ -139,6 +139,10 @@ It is commonly agreed that leveraging cloud technology and machine learning can 
     sudo apt install python3-flask
     ```
 
+    venvs are in `/home/ubuntu/.local/share/pipx/venvs/virtualenv`
+
+    apps are exposed on your `$PATH` at `/home/ubuntu/.local/bin`
+
 1. **Installing Jupyter**
 
     ```
